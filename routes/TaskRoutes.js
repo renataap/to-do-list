@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const taskController = require('../controllers.js/Task');
+const taskController = require('../controllers/Task');
 
 router.post('/tasks', taskController.insertTask);
 

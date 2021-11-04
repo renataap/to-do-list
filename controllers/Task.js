@@ -1,4 +1,4 @@
-const taskService = require('../services.js/Task');
+const taskService = require('../services/Task');
 
 const CREATED_STATUS = 201;
 const UNPROCESSABLE_ENTITY_STATUS = 422;
