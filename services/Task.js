@@ -27,6 +27,26 @@ const insertTask = async ({ createDate, title, description, priority, status }) 
   return newTask;
 };
 
+const getAllTasks = async () => {
+  const tasks = await Task.getAll();
+  return tasks;
+};
+
+const findTaskById = async (id) => {
+  const task = await Task.findTaskById(id);
+  if (task === null) {
+    return {
+      err: {
+        code: 'invalid_data',
+        message: 'Wrong id format',
+      },
+    };
+  }
+  return task;
+};
+
 module.exports = {
   insertTask,
+  getAllTasks,
+  findTaskById,
 };
