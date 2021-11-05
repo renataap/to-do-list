@@ -12,9 +12,9 @@ const titleIsValid = (title) => typeof title === 'string' && title.length >= 5;
 const validate = async ({ id, title }) => {
   if (!titleIsValid(title)) return { err: { code, message: errors.isLengthLetterThan } };
 
-  // if (await Task.taskExists({ id, title })) {
-  //   return { err: { code, message: errors.isDuplicated } };
-  // }
+  if (await Task.taskExists({ id, title })) {
+    return { err: { code, message: errors.isDuplicated } };
+  }
 
   return {};
 };
@@ -45,6 +45,14 @@ const findTaskById = async (id) => {
   return task;
 };
 
+const updateTask = async ({ id, createDate, title, description, priority, status }) => {
+  const validations = await validate({ id, title });
+  if (validations.err) return validations;
+
+  const updated = await Task.updateTask({ id, createDate, title, description, priority, status });
+  return updated;
+};
+
 const deleteTask = async (id) => {
   const deleted = await Task.deleteTask(id);
 
@@ -64,5 +72,6 @@ module.exports = {
   insertTask,
   getAllTasks,
   findTaskById,
+  updateTask,
   deleteTask,
 };

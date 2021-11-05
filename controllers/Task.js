@@ -36,6 +36,16 @@ const findTaskById = async (req, res) => {
   res.status(OK_STATUS).json(task);
 };
 
+const updateTask = async (req, res) => {
+  const { id } = req.params;
+  const { createDate, title, description, priority, status } = req.body;
+  const updated = await taskService.updateTask({ id, createDate, title, description, priority, status });
+
+  if (updated.err) return res.status(UNPROCESSABLE_ENTITY_STATUS).json(updated);
+
+  res.status(OK_STATUS).json(updated);
+};
+
 const deleteTask = async (req, res) => {
   const { id } = req.params;
   const deleted = await taskService.deleteTask(id);
@@ -47,5 +57,6 @@ module.exports = {
   insertTask,
   getAllTasks,
   findTaskById,
+  updateTask,
   deleteTask,
 };
