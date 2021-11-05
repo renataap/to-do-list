@@ -12,9 +12,9 @@ const titleIsValid = (title) => typeof title === 'string' && title.length >= 5;
 const validate = async ({ id, title }) => {
   if (!titleIsValid(title)) return { err: { code, message: errors.isLengthLetterThan } };
 
-  // if (await Task.taskExists({ id, title })) {
-  //   return { err: { code, message: errors.isDuplicated } };
-  // }
+  if (await Task.taskExists({ id, title })) {
+    return { err: { code, message: errors.isDuplicated } };
+  }
 
   return {};
 };
