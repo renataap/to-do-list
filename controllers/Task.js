@@ -1,5 +1,6 @@
 const taskService = require('../services/Task');
 
+const OK_STATUS = 200;
 const CREATED_STATUS = 201;
 const UNPROCESSABLE_ENTITY_STATUS = 422;
 const INTERNAL_SERVER_ERROR = 500;
@@ -17,6 +18,26 @@ const insertTask = async (req, res) => {
   }
 };
 
+const getAllTasks = async (req, res) => {
+  try {
+    const tasks = await Task.getAll();
+    res.status(OK_STATUS).json({ tasks });
+  } catch (error) {
+    console.error(error);
+    res.status(INTERNAL_SERVER_ERROR).json({ message: 'Aconteceu erro ao buscar os dados' });
+  }
+};
+
+const findTaskById = async (req, res) => {
+  const { id } = req.params;
+  const task = await Task.findById(id);
+  if (task.err) return res.status(UNPROCESSABLE_ENTITY_STATUS).json(task);
+
+  res.status(OK_STATUS).json(task);
+};
+
 module.exports = {
   insertTask,
+  getAllTasks,
+  findTaskById,
 };
