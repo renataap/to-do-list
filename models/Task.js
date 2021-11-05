@@ -23,6 +23,17 @@ const findTaskById = async (id) => {
   return taskId;
 };
 
+const updateTask = async ({ id, createDate, title, description, priority, status }) => {
+  const db = await getConnection();
+  const updated = await db.collection('tasks').findOneAndUpdate(
+    { _id: new ObjectId(id) },
+    [{ $set: { createDate, title, description, priority, status } }],
+    { returnOriginal: false },
+  );
+
+  return updated.value;
+};
+
 const deleteTask = async (id) => {
   if (!ObjectId.isValid(id)) {
     return null;
@@ -36,5 +47,6 @@ module.exports = {
   insertTask,
   getAllTasks,
   findTaskById,
+  updateTask,
   deleteTask,
 }
