@@ -5,5 +5,6 @@ router.get('/tasks', taskController.getAllTasks);
 router.get('/tasks/:id', taskController.findTaskById);
 router.post('/tasks', taskController.insertTask);
 
+router.delete('/tasks/:id', taskController.deleteTask);
 
 module.exports = router;
