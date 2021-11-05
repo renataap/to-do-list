@@ -28,7 +28,7 @@ const insertTask = async ({ createDate, title, description, priority, status }) 
 };
 
 const getAllTasks = async () => {
-  const tasks = await Task.getAll();
+  const tasks = await Task.getAllTasks();
   return tasks;
 };
 
