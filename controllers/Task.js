@@ -20,7 +20,7 @@ const insertTask = async (req, res) => {
 
 const getAllTasks = async (req, res) => {
   try {
-    const tasks = await Task.getAll();
+    const tasks = await taskService.getAllTasks();
     res.status(OK_STATUS).json({ tasks });
   } catch (error) {
     console.error(error);
@@ -30,7 +30,7 @@ const getAllTasks = async (req, res) => {
 
 const findTaskById = async (req, res) => {
   const { id } = req.params;
-  const task = await Task.findById(id);
+  const task = await taskService.findTaskById(id);
   if (task.err) return res.status(UNPROCESSABLE_ENTITY_STATUS).json(task);
 
   res.status(OK_STATUS).json(task);
