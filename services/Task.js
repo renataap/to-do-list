@@ -45,8 +45,24 @@ const findTaskById = async (id) => {
   return task;
 };
 
+const deleteTask = async (id) => {
+  const deleted = await Task.deleteTask(id);
+
+  if (deleted === null) {
+    return {
+      err: {
+        code: 'invalid_data',
+        message: 'Wrong id format',
+      },
+    };
+  }
+
+  return deleted;
+};
+
 module.exports = {
   insertTask,
   getAllTasks,
   findTaskById,
+  deleteTask,
 };
